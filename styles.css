@@ -1,14 +1,17 @@
 :root {
   color-scheme: light;
-  --paper: #fbf7ef;
-  --ink: #201914;
-  --muted: #75685f;
-  --line: rgba(32, 25, 20, 0.13);
-  --accent: #9b3d24;
-  --gold: #ba8b45;
-  --green: #20784f;
-  --red: #a8322a;
-  --shadow: 0 24px 70px rgba(42, 28, 17, 0.22);
+  --cream: #FCF5E3;
+  --cream-light: #FFF9EE;
+  --cream-gold: #EED09F;
+  --deep-brown: #2F0E0D;
+  --burgundy: #770810;
+  --orange: #FCAB17;
+  --gold: #FBB73C;
+  --warm-red: #BB2F1D;
+  --leaf-green: #5F7F32;
+  --muted: rgba(47, 14, 13, 0.66);
+  --line: rgba(47, 14, 13, 0.14);
+  --shadow: 0 18px 44px rgba(47, 14, 13, 0.2);
 }
 
 * {
@@ -21,10 +24,8 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(186, 139, 69, 0.18), transparent 28rem),
-    linear-gradient(180deg, #fffaf2 0%, var(--paper) 38%, #f5ede1 100%);
-  color: var(--ink);
+  background: linear-gradient(180deg, var(--cream-light) 0%, var(--cream) 48%, #f7ecd4 100%);
+  color: var(--deep-brown);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -37,6 +38,10 @@ img {
   width: min(100%, 560px);
   margin: 0 auto;
   overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(238, 208, 159, 0.28) 1px, transparent 1px),
+    var(--cream);
+  background-size: 28px 100%;
 }
 
 .hero {
@@ -45,54 +50,56 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  background: linear-gradient(180deg, var(--cream-light), rgba(252, 245, 227, 0.9));
 }
 
 .kicker,
 .section-number,
 .note,
 .hours,
-.item span,
-.category-badge,
+.availability,
 .contact p {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 750;
 }
 
 .kicker,
-.section-number {
-  color: var(--accent);
+.section-number,
+.contact p {
+  color: var(--burgundy);
 }
 
 h1,
 h2,
 h3,
-p {
+p,
+figure {
   margin: 0;
 }
 
 h1 {
-  max-width: 8ch;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(4.4rem, 5.8rem, 7.4rem);
-  line-height: 0.82;
-  letter-spacing: 0;
+  max-width: 8.8ch;
   margin-top: 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.85rem, 16vw, 5.55rem);
+  line-height: 0.88;
+  letter-spacing: 0;
 }
 
 .tagline {
   max-width: 20rem;
-  margin-top: 26px;
+  margin-top: 24px;
   color: var(--muted);
-  font-size: 1.08rem;
+  font-size: 1.05rem;
   line-height: 1.55;
 }
 
 .hours {
   width: fit-content;
-  margin-top: 34px;
-  padding-top: 16px;
+  margin-top: 32px;
+  padding-top: 15px;
   border-top: 1px solid var(--line);
   color: var(--muted);
 }
@@ -100,13 +107,13 @@ h1 {
 .hours strong {
   display: block;
   margin-top: 5px;
-  color: var(--ink);
+  color: var(--deep-brown);
   font-size: 0.82rem;
 }
 
 .category {
-  min-height: 122svh;
-  padding: 10svh 18px 16svh;
+  min-height: 118svh;
+  padding: 10svh 16px 15svh;
   display: flex;
   align-items: center;
 }
@@ -114,18 +121,26 @@ h1 {
 .category-stage {
   position: relative;
   width: 100%;
-  min-height: 690px;
+  min-height: 660px;
   display: grid;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "copy"
+    "visual"
+    "panel";
+  align-content: center;
+  gap: 22px;
 }
 
 .food-visual {
+  grid-area: visual;
   position: relative;
   z-index: 1;
-  width: min(82vw, 410px);
-  aspect-ratio: 0.82;
-  margin: 128px auto 0;
-  border-radius: 28px;
+  width: min(82vw, 390px);
+  aspect-ratio: 0.86;
+  margin: 0 auto;
+  border: 1px solid rgba(119, 8, 16, 0.12);
+  border-radius: 24px;
   overflow: hidden;
   box-shadow: var(--shadow);
   transform: translate3d(0, 0, 0) scale(1);
@@ -136,111 +151,102 @@ h1 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent 44%, rgba(0, 0, 0, 0.18));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent 46%, rgba(47, 14, 13, 0.2));
 }
 
 .food-visual img {
   height: 100%;
   object-fit: cover;
-  transform: scale(1.06);
+  transform: scale(1.04);
   transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .category-copy {
-  position: absolute;
+  grid-area: copy;
   z-index: 2;
-  left: 50%;
-  top: 0;
-  width: min(82vw, 410px);
-  color: var(--ink);
-  transform: translateX(-50%);
-  transition:
-    left 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    width 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: min(82vw, 390px);
+  margin: 0 auto;
+  color: var(--deep-brown);
+  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), width 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .category-copy h2 {
   margin-top: 6px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.65rem, 3.6rem, 4.4rem);
-  line-height: 0.92;
+  font-size: clamp(2.35rem, 12vw, 3.75rem);
+  line-height: 0.94;
   letter-spacing: 0;
 }
 
 .note {
-  margin-top: 13px;
+  margin-top: 12px;
   color: var(--muted);
 }
 
 .menu-panel {
-  position: absolute;
+  grid-area: panel;
   z-index: 3;
-  top: 178px;
-  width: 54%;
+  width: min(100%, 390px);
+  margin: 0 auto;
+  padding: 4px 0;
   opacity: 0;
   pointer-events: none;
-  transform: translate3d(var(--panel-start), 18px, 0);
-  transition: opacity 420ms ease, transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translate3d(var(--panel-start), 14px, 0);
+  transition: opacity 360ms ease, transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .category[data-shift="left"] .menu-panel {
-  right: 0;
-  --panel-start: 34px;
+  --panel-start: 28px;
 }
 
 .category[data-shift="right"] .menu-panel {
-  left: 0;
-  --panel-start: -34px;
+  --panel-start: -28px;
 }
 
 .item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 5px 9px;
+  grid-template-columns: minmax(0, 1fr) minmax(3.4rem, auto);
+  gap: 8px 12px;
   align-items: start;
   padding: 12px 0;
   border-bottom: 1px solid var(--line);
 }
 
-.item h3 {
-  grid-column: 1;
-  grid-row: 1;
-  display: flex;
-  gap: 9px;
+.item-main {
   min-width: 0;
+}
+
+.item h3 {
+  color: var(--deep-brown);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1rem;
-  line-height: 1.18;
+  font-size: clamp(1.06rem, 4.7vw, 1.16rem);
+  font-weight: 650;
+  line-height: 1.17;
 }
 
-.item h3::after {
-  content: "";
-  flex: 1 1 18px;
-  min-width: 18px;
-  align-self: end;
-  height: 1px;
-  margin-bottom: 3px;
-  background-image: radial-gradient(circle, rgba(32, 25, 20, 0.38) 1px, transparent 1.2px);
-  background-size: 7px 1px;
-  background-repeat: repeat-x;
+.quantity {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.2;
 }
 
-.item strong {
-  grid-column: 2;
-  grid-row: 1;
-  font-size: 1rem;
-  line-height: 1;
+.price {
+  justify-self: end;
+  color: var(--burgundy);
+  font-size: clamp(1rem, 4.5vw, 1.12rem);
+  line-height: 1.1;
   white-space: nowrap;
 }
 
-.item span {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  color: var(--green);
+.availability {
+  display: block;
+  margin-top: 7px;
+  color: var(--leaf-green);
+  font-size: 0.7rem;
 }
 
-.item span::before {
+.availability::before {
   content: "";
   display: inline-block;
   width: 7px;
@@ -251,8 +257,45 @@ h1 {
   vertical-align: 1px;
 }
 
+.item.unavailable {
+  opacity: 0.62;
+}
+
+.item.unavailable .availability {
+  color: var(--warm-red);
+}
+
+.category.is-unavailable {
+  opacity: 0.72;
+}
+
+.category.is-unavailable .food-visual {
+  filter: grayscale(0.45) saturate(0.65);
+}
+
+.category.is-active .category-stage {
+  grid-template-columns: minmax(112px, 38%) minmax(0, 1fr);
+  grid-template-areas:
+    "copy copy"
+    "visual panel";
+  gap: 18px 14px;
+  align-items: center;
+}
+
+.category.is-active[data-shift="right"] .category-stage {
+  grid-template-columns: minmax(0, 1fr) minmax(112px, 38%);
+  grid-template-areas:
+    "copy copy"
+    "panel visual";
+}
+
 .category.is-active .food-visual {
-  transform: translate3d(var(--image-shift), -6px, 0) scale(0.64);
+  width: 100%;
+  max-width: 176px;
+  aspect-ratio: 0.82;
+  margin: 0;
+  border-radius: 18px;
+  transform: translate3d(0, -4px, 0) scale(1);
 }
 
 .category.is-active .food-visual img {
@@ -260,14 +303,14 @@ h1 {
 }
 
 .category.is-active .category-copy {
-  left: var(--copy-left);
-  width: 54%;
+  width: 100%;
+  margin: 0;
   transform: translate3d(0, 0, 0);
 }
 
 .category.is-active .category-copy h2 {
-  font-size: clamp(1.45rem, 6vw, 2.05rem);
-  line-height: 1;
+  font-size: clamp(1.95rem, 9.2vw, 2.85rem);
+  line-height: 0.96;
 }
 
 .category.is-active .category-copy .note {
@@ -275,50 +318,59 @@ h1 {
 }
 
 .category.is-active .menu-panel {
+  width: 100%;
+  margin: 0;
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0);
 }
 
-.category[data-shift="left"] {
-  --image-shift: -25%;
-  --copy-left: 46%;
-}
-
-.category[data-shift="right"] {
-  --image-shift: 25%;
-  --copy-left: 0;
-}
-
-.category-badge {
-  display: inline-block;
-  margin-bottom: 7px;
-  color: var(--red);
-}
-
 .contact {
-  padding: 78px 22px 90px;
+  padding: 76px 22px 90px;
   border-top: 1px solid var(--line);
-}
-
-.contact p {
-  color: var(--accent);
+  background: var(--cream-light);
 }
 
 .contact h2 {
-  max-width: 11ch;
+  max-width: 12ch;
   margin-top: 14px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 3.1rem;
+  font-size: clamp(2.7rem, 13vw, 3.4rem);
   line-height: 0.95;
   letter-spacing: 0;
 }
 
 address {
-  margin-top: 30px;
+  margin-top: 28px;
   color: var(--muted);
   font-style: normal;
   line-height: 1.6;
+}
+
+@media (max-width: 374px) {
+  .category {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .category.is-active .category-stage,
+  .category.is-active[data-shift="right"] .category-stage {
+    grid-template-columns: minmax(96px, 34%) minmax(0, 1fr);
+    gap: 16px 12px;
+  }
+
+  .category.is-active[data-shift="right"] .category-stage {
+    grid-template-columns: minmax(0, 1fr) minmax(96px, 34%);
+  }
+
+  .item {
+    grid-template-columns: minmax(0, 1fr) minmax(3rem, auto);
+    gap: 7px 9px;
+  }
+
+  .item h3 {
+    font-size: 1.02rem;
+  }
 }
 
 @media (min-width: 620px) {
@@ -328,16 +380,16 @@ address {
 
   .menu-shell {
     min-height: 100vh;
-    box-shadow: 0 0 0 1px rgba(32, 25, 20, 0.08), 0 30px 90px rgba(32, 25, 20, 0.18);
+    box-shadow: 0 0 0 1px rgba(47, 14, 13, 0.08), 0 30px 90px rgba(47, 14, 13, 0.18);
   }
 }
 
 @media (min-width: 900px) {
   body {
     background:
-      radial-gradient(circle at 8% 12%, rgba(155, 61, 36, 0.14), transparent 30rem),
-      radial-gradient(circle at 88% 18%, rgba(186, 139, 69, 0.18), transparent 34rem),
-      linear-gradient(180deg, #fffaf2 0%, #f8f0e5 52%, #eee2d2 100%);
+      radial-gradient(circle at 8% 12%, rgba(119, 8, 16, 0.13), transparent 30rem),
+      radial-gradient(circle at 88% 18%, rgba(252, 171, 23, 0.18), transparent 34rem),
+      linear-gradient(180deg, var(--cream-light) 0%, var(--cream) 52%, #eee2d2 100%);
   }
 
   .menu-shell {
@@ -351,8 +403,8 @@ address {
   }
 
   h1 {
-    max-width: 12ch;
-    font-size: 6.6rem;
+    max-width: 13ch;
+    font-size: 6.3rem;
   }
 
   .tagline {
@@ -367,60 +419,57 @@ address {
 
   .category-stage {
     min-height: 760px;
+    gap: 28px;
   }
 
   .food-visual {
     width: min(44vw, 520px);
     aspect-ratio: 1;
-    margin-top: 130px;
-    border-radius: 34px;
+    border-radius: 32px;
   }
 
   .category-copy {
     width: min(44vw, 520px);
-    top: 0;
   }
 
   .category-copy h2 {
     max-width: 9ch;
-    font-size: 5.2rem;
+    font-size: 5rem;
   }
 
   .menu-panel {
-    top: 210px;
     width: min(39%, 430px);
   }
 
-  .category[data-shift="left"] .menu-panel {
-    right: 6%;
+  .category.is-active .category-stage {
+    grid-template-columns: minmax(280px, 44%) minmax(330px, 430px);
+    grid-template-areas:
+      "copy panel"
+      "visual panel";
+    gap: 24px 58px;
+    justify-content: center;
   }
 
-  .category[data-shift="right"] .menu-panel {
-    left: 6%;
-  }
-
-  .category[data-shift="left"] {
-    --image-shift: -42%;
-    --copy-left: 55%;
-  }
-
-  .category[data-shift="right"] {
-    --image-shift: 42%;
-    --copy-left: 6%;
+  .category.is-active[data-shift="right"] .category-stage {
+    grid-template-columns: minmax(330px, 430px) minmax(280px, 44%);
+    grid-template-areas:
+      "panel copy"
+      "panel visual";
   }
 
   .category.is-active .food-visual {
-    transform: translate3d(var(--image-shift), -18px, 0) scale(0.72);
-  }
-
-  .category.is-active .category-copy {
-    width: min(39%, 430px);
-    transform: translate3d(0, 0, 0);
+    max-width: 420px;
+    aspect-ratio: 1;
+    border-radius: 28px;
   }
 
   .category.is-active .category-copy h2 {
-    font-size: 2.75rem;
+    font-size: 3.25rem;
     line-height: 0.98;
+  }
+
+  .category.is-active .menu-panel {
+    align-self: center;
   }
 
   .item {
@@ -431,7 +480,7 @@ address {
     font-size: 1.18rem;
   }
 
-  .item strong {
+  .price {
     font-size: 1.12rem;
   }
 
