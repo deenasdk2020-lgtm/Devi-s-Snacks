@@ -112,8 +112,8 @@ h1 {
 }
 
 .category {
-  min-height: 88svh;
-  padding: 7svh 20px 8svh;
+  min-height: auto;
+  padding: 54px 20px 58px;
   display: flex;
   align-items: center;
 }
@@ -121,30 +121,38 @@ h1 {
 .category-stage {
   position: relative;
   width: 100%;
-  min-height: 520px;
+  min-height: auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: clamp(90px, 25vw, 112px) minmax(0, 1fr);
   grid-template-areas:
-    "copy"
-    "visual"
-    "panel";
+    "visual copy"
+    "panel panel";
   align-content: center;
-  gap: 22px;
+  align-items: center;
+  gap: 18px 14px;
+}
+
+.category[data-shift="right"] .category-stage {
+  grid-template-columns: minmax(0, 1fr) clamp(90px, 25vw, 112px);
+  grid-template-areas:
+    "copy visual"
+    "panel panel";
 }
 
 .food-visual {
   grid-area: visual;
   position: relative;
   z-index: 1;
-  width: min(82vw, 390px);
-  aspect-ratio: 0.86;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 112px;
+  aspect-ratio: 1;
+  margin: 0;
   border: 1px solid rgba(119, 8, 16, 0.12);
-  border-radius: 24px;
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transform: translate3d(0, 0, 0) scale(1);
-  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 520ms ease, opacity 520ms ease;
+  transform: translate3d(0, 6px, 0) scale(0.96);
+  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 360ms ease, opacity 360ms ease;
 }
 
 .food-visual::after {
@@ -164,17 +172,18 @@ h1 {
 .category-copy {
   grid-area: copy;
   z-index: 2;
-  width: min(82vw, 390px);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   color: var(--deep-brown);
-  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), width 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translate3d(0, 6px, 0);
+  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 360ms ease;
 }
 
 .category-copy h2 {
   margin-top: 6px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.35rem, 12vw, 3.75rem);
-  line-height: 0.94;
+  font-size: clamp(1.8rem, 8.4vw, 2.55rem);
+  line-height: 0.98;
   letter-spacing: 0;
 }
 
@@ -186,13 +195,13 @@ h1 {
 .menu-panel {
   grid-area: panel;
   z-index: 3;
-  width: min(100%, 390px);
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 4px 0;
-  opacity: 0;
+  opacity: 0.18;
   pointer-events: none;
-  transform: translate3d(var(--panel-start), 14px, 0);
-  transition: opacity 360ms ease, transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 300ms ease, transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .category[data-shift="left"] .menu-panel {
@@ -274,27 +283,14 @@ h1 {
 }
 
 .category.is-active .category-stage {
-  grid-template-columns: clamp(90px, 25vw, 112px) minmax(0, 1fr);
-  grid-template-areas:
-    "visual copy"
-    "panel panel";
-  gap: 18px 14px;
-  align-items: center;
+  transform: translate3d(0, 0, 0);
 }
 
 .category.is-active[data-shift="right"] .category-stage {
-  grid-template-columns: minmax(0, 1fr) clamp(90px, 25vw, 112px);
-  grid-template-areas:
-    "copy visual"
-    "panel panel";
+  transform: translate3d(0, 0, 0);
 }
 
 .category.is-active .food-visual {
-  width: 100%;
-  max-width: 112px;
-  aspect-ratio: 1;
-  margin: 0;
-  border-radius: 16px;
   transform: translate3d(0, 0, 0) scale(1);
 }
 
@@ -303,14 +299,7 @@ h1 {
 }
 
 .category.is-active .category-copy {
-  width: 100%;
-  margin: 0;
   transform: translate3d(0, 0, 0);
-}
-
-.category.is-active .category-copy h2 {
-  font-size: clamp(1.8rem, 8.4vw, 2.55rem);
-  line-height: 0.98;
 }
 
 .category.is-active .category-copy .note {
@@ -318,8 +307,6 @@ h1 {
 }
 
 .category.is-active .menu-panel {
-  width: 100%;
-  margin: 0;
   opacity: 1;
   pointer-events: auto;
   transform: translate3d(0, 0, 0);
@@ -349,20 +336,24 @@ address {
 
 @media (max-width: 374px) {
   .category {
+    padding-top: 46px;
+    padding-bottom: 50px;
     padding-left: 18px;
     padding-right: 18px;
   }
 
-  .category.is-active .category-stage,
-  .category.is-active[data-shift="right"] .category-stage {
+  .category-stage,
+  .category.is-active .category-stage {
     grid-template-columns: 76px minmax(0, 1fr);
     gap: 16px 12px;
   }
 
+  .category[data-shift="right"] .category-stage,
   .category.is-active[data-shift="right"] .category-stage {
     grid-template-columns: minmax(0, 1fr) 76px;
   }
 
+  .food-visual,
   .category.is-active .food-visual {
     max-width: 76px;
     border-radius: 14px;
@@ -418,61 +409,45 @@ address {
   }
 
   .category {
-    min-height: 92svh;
-    padding: 8svh 64px 10svh;
+    min-height: auto;
+    padding: 72px 64px 78px;
   }
 
   .category-stage {
-    min-height: 620px;
-    gap: 28px;
-  }
-
-  .food-visual {
-    width: min(44vw, 520px);
-    aspect-ratio: 1;
-    border-radius: 32px;
-  }
-
-  .category-copy {
-    width: min(44vw, 520px);
-  }
-
-  .category-copy h2 {
-    max-width: 9ch;
-    font-size: 5rem;
-  }
-
-  .menu-panel {
-    width: min(39%, 430px);
-  }
-
-  .category.is-active .category-stage {
+    min-height: auto;
     grid-template-columns: 136px minmax(0, 1fr);
     grid-template-areas:
       "visual copy"
       "panel panel";
     gap: 26px 24px;
-    justify-content: stretch;
   }
 
-  .category.is-active[data-shift="right"] .category-stage {
+  .category[data-shift="right"] .category-stage {
     grid-template-columns: minmax(0, 1fr) 136px;
     grid-template-areas:
       "copy visual"
       "panel panel";
   }
 
+  .food-visual,
   .category.is-active .food-visual {
+    width: 100%;
     max-width: 136px;
     aspect-ratio: 1;
     border-radius: 20px;
   }
 
-  .category.is-active .category-copy h2 {
+  .category-copy {
+    width: 100%;
+  }
+
+  .category-copy h2 {
+    max-width: 9ch;
     font-size: 3.25rem;
     line-height: 0.98;
   }
 
+  .menu-panel,
   .category.is-active .menu-panel {
     align-self: start;
     width: min(100%, 760px);
