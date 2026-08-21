@@ -274,28 +274,28 @@ h1 {
 }
 
 .category.is-active .category-stage {
-  grid-template-columns: minmax(112px, 38%) minmax(0, 1fr);
+  grid-template-columns: clamp(82px, 25vw, 108px) minmax(0, 1fr);
   grid-template-areas:
-    "copy copy"
-    "visual panel";
+    "visual copy"
+    "panel panel";
   gap: 18px 14px;
   align-items: center;
 }
 
 .category.is-active[data-shift="right"] .category-stage {
-  grid-template-columns: minmax(0, 1fr) minmax(112px, 38%);
+  grid-template-columns: minmax(0, 1fr) clamp(82px, 25vw, 108px);
   grid-template-areas:
-    "copy copy"
-    "panel visual";
+    "copy visual"
+    "panel panel";
 }
 
 .category.is-active .food-visual {
   width: 100%;
-  max-width: 176px;
-  aspect-ratio: 0.82;
+  max-width: 108px;
+  aspect-ratio: 1;
   margin: 0;
-  border-radius: 18px;
-  transform: translate3d(0, -4px, 0) scale(1);
+  border-radius: 16px;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .category.is-active .food-visual img {
@@ -309,8 +309,8 @@ h1 {
 }
 
 .category.is-active .category-copy h2 {
-  font-size: clamp(1.95rem, 9.2vw, 2.85rem);
-  line-height: 0.96;
+  font-size: clamp(1.8rem, 8.4vw, 2.55rem);
+  line-height: 0.98;
 }
 
 .category.is-active .category-copy .note {
@@ -355,12 +355,17 @@ address {
 
   .category.is-active .category-stage,
   .category.is-active[data-shift="right"] .category-stage {
-    grid-template-columns: minmax(96px, 34%) minmax(0, 1fr);
+    grid-template-columns: 76px minmax(0, 1fr);
     gap: 16px 12px;
   }
 
   .category.is-active[data-shift="right"] .category-stage {
-    grid-template-columns: minmax(0, 1fr) minmax(96px, 34%);
+    grid-template-columns: minmax(0, 1fr) 76px;
+  }
+
+  .category.is-active .food-visual {
+    max-width: 76px;
+    border-radius: 14px;
   }
 
   .item {
