@@ -50,7 +50,7 @@ img {
   padding: 34px 22px 52px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   background: linear-gradient(180deg, var(--cream-light), rgba(252, 245, 227, 0.9));
 }
 
@@ -81,12 +81,27 @@ figure {
 }
 
 h1 {
-  max-width: 8.8ch;
-  margin-top: 18px;
+  max-width: 7.8ch;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(3.85rem, 16vw, 5.55rem);
-  line-height: 0.88;
+  font-size: clamp(2.85rem, 12.5vw, 4.65rem);
+  line-height: 0.9;
   letter-spacing: 0;
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.brand-logo {
+  flex: 0 0 auto;
+  width: clamp(76px, 24vw, 112px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 12px 30px rgba(47, 14, 13, 0.18);
 }
 
 .tagline {
@@ -414,8 +429,16 @@ address {
   }
 
   h1 {
-    max-width: 13ch;
-    font-size: 6.3rem;
+    max-width: 12ch;
+    font-size: 5.6rem;
+  }
+
+  .brand-lockup {
+    gap: 24px;
+  }
+
+  .brand-logo {
+    width: 138px;
   }
 
   .tagline {
