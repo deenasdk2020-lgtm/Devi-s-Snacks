@@ -12,6 +12,7 @@
   --muted: rgba(47, 14, 13, 0.66);
   --line: rgba(47, 14, 13, 0.14);
   --shadow: 0 18px 44px rgba(47, 14, 13, 0.2);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -151,8 +152,13 @@ h1 {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  transform: translate3d(0, 6px, 0) scale(0.96);
-  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 360ms ease, opacity 360ms ease;
+  opacity: 0.86;
+  transform: translate3d(0, 10px, 0) scale(0.96);
+  transition:
+    opacity 520ms ease,
+    transform 620ms var(--ease-out),
+    filter 520ms ease;
+  will-change: transform, opacity;
 }
 
 .food-visual::after {
@@ -165,8 +171,8 @@ h1 {
 .food-visual img {
   height: 100%;
   object-fit: cover;
-  transform: scale(1.04);
-  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: scale(1.035);
+  transition: transform 700ms var(--ease-out);
 }
 
 .category-copy {
@@ -175,8 +181,12 @@ h1 {
   width: 100%;
   margin: 0;
   color: var(--deep-brown);
-  transform: translate3d(0, 6px, 0);
-  transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 360ms ease;
+  opacity: 0.86;
+  transform: translate3d(0, 8px, 0);
+  transition:
+    opacity 520ms ease 60ms,
+    transform 620ms var(--ease-out) 60ms;
+  will-change: transform, opacity;
 }
 
 .category-copy h2 {
@@ -198,10 +208,13 @@ h1 {
   width: 100%;
   margin: 0;
   padding: 4px 0;
-  opacity: 0.18;
+  opacity: 0.42;
   pointer-events: none;
-  transform: translate3d(0, 10px, 0);
-  transition: opacity 300ms ease, transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 560ms ease 120ms,
+    transform 640ms var(--ease-out) 120ms;
+  will-change: transform, opacity;
 }
 
 .category[data-shift="left"] .menu-panel {
@@ -291,6 +304,7 @@ h1 {
 }
 
 .category.is-active .food-visual {
+  opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
 }
 
@@ -299,6 +313,7 @@ h1 {
 }
 
 .category.is-active .category-copy {
+  opacity: 1;
   transform: translate3d(0, 0, 0);
 }
 
