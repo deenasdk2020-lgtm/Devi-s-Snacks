@@ -112,8 +112,8 @@ h1 {
 }
 
 .category {
-  min-height: 118svh;
-  padding: 10svh 16px 15svh;
+  min-height: 88svh;
+  padding: 7svh 20px 8svh;
   display: flex;
   align-items: center;
 }
@@ -121,7 +121,7 @@ h1 {
 .category-stage {
   position: relative;
   width: 100%;
-  min-height: 660px;
+  min-height: 520px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
@@ -274,7 +274,7 @@ h1 {
 }
 
 .category.is-active .category-stage {
-  grid-template-columns: clamp(82px, 25vw, 108px) minmax(0, 1fr);
+  grid-template-columns: clamp(90px, 25vw, 112px) minmax(0, 1fr);
   grid-template-areas:
     "visual copy"
     "panel panel";
@@ -283,7 +283,7 @@ h1 {
 }
 
 .category.is-active[data-shift="right"] .category-stage {
-  grid-template-columns: minmax(0, 1fr) clamp(82px, 25vw, 108px);
+  grid-template-columns: minmax(0, 1fr) clamp(90px, 25vw, 112px);
   grid-template-areas:
     "copy visual"
     "panel panel";
@@ -291,7 +291,7 @@ h1 {
 
 .category.is-active .food-visual {
   width: 100%;
-  max-width: 108px;
+  max-width: 112px;
   aspect-ratio: 1;
   margin: 0;
   border-radius: 16px;
@@ -349,8 +349,8 @@ address {
 
 @media (max-width: 374px) {
   .category {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 18px;
+    padding-right: 18px;
   }
 
   .category.is-active .category-stage,
@@ -418,12 +418,12 @@ address {
   }
 
   .category {
-    min-height: 112svh;
-    padding: 10svh 64px 14svh;
+    min-height: 92svh;
+    padding: 8svh 64px 10svh;
   }
 
   .category-stage {
-    min-height: 760px;
+    min-height: 620px;
     gap: 28px;
   }
 
@@ -447,25 +447,25 @@ address {
   }
 
   .category.is-active .category-stage {
-    grid-template-columns: minmax(280px, 44%) minmax(330px, 430px);
+    grid-template-columns: 136px minmax(0, 1fr);
     grid-template-areas:
-      "copy panel"
-      "visual panel";
-    gap: 24px 58px;
-    justify-content: center;
+      "visual copy"
+      "panel panel";
+    gap: 26px 24px;
+    justify-content: stretch;
   }
 
   .category.is-active[data-shift="right"] .category-stage {
-    grid-template-columns: minmax(330px, 430px) minmax(280px, 44%);
+    grid-template-columns: minmax(0, 1fr) 136px;
     grid-template-areas:
-      "panel copy"
-      "panel visual";
+      "copy visual"
+      "panel panel";
   }
 
   .category.is-active .food-visual {
-    max-width: 420px;
+    max-width: 136px;
     aspect-ratio: 1;
-    border-radius: 28px;
+    border-radius: 20px;
   }
 
   .category.is-active .category-copy h2 {
@@ -474,7 +474,8 @@ address {
   }
 
   .category.is-active .menu-panel {
-    align-self: center;
+    align-self: start;
+    width: min(100%, 760px);
   }
 
   .item {
