@@ -13,6 +13,7 @@
   --line: rgba(47, 14, 13, 0.14);
   --shadow: 0 18px 44px rgba(47, 14, 13, 0.2);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 * {
@@ -47,8 +48,8 @@ img {
 }
 
 .hero {
-  min-height: 82svh;
-  padding: clamp(28px, 7vw, 72px) clamp(18px, 7vw, 82px) clamp(44px, 8vw, 76px);
+  min-height: auto;
+  padding: clamp(22px, 6vw, 72px) clamp(14px, 7vw, 82px) 26px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -83,24 +84,30 @@ figure {
 
 h1 {
   min-width: 0;
-  max-width: 7.8ch;
+  flex: 1 1 auto;
+  max-width: none;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.85rem, 12.5vw, 4.65rem);
+  font-size: clamp(2.2rem, 9vw, 4.1rem);
   line-height: 0.9;
   letter-spacing: 0;
+}
+
+h1 span {
+  white-space: nowrap;
 }
 
 .brand-lockup {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: clamp(8px, 2.5vw, 24px);
+  min-width: 0;
   max-width: 52rem;
   margin-top: 18px;
 }
 
 .brand-logo {
   flex: 0 0 auto;
-  width: clamp(64px, 20vw, 138px);
+  width: clamp(64px, 16vw, 138px);
   aspect-ratio: 1;
   border-radius: 50%;
   object-fit: cover;
@@ -132,7 +139,7 @@ h1 {
 
 .category {
   min-height: auto;
-  padding: clamp(46px, 7vw, 72px) clamp(18px, 7vw, 82px) clamp(50px, 8vw, 78px);
+  padding: 24px clamp(18px, 7vw, 82px) clamp(50px, 8vw, 78px);
   display: flex;
   align-items: center;
 }
@@ -141,6 +148,7 @@ h1 {
   position: relative;
   width: min(100%, 960px);
   margin: 0 auto;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) clamp(92px, 27vw, 126px);
   grid-template-areas:
@@ -150,13 +158,36 @@ h1 {
   gap: 18px 14px;
 }
 
+.category.is-transforming .category-stage {
+  grid-template-columns: minmax(0, 1fr) clamp(118px, 37vw, 154px);
+  gap: 18px 18px;
+}
+
+.category:not(.is-transforming) .category-stage {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "copy"
+    "visual"
+    "panel";
+  gap: 18px;
+}
+
+.visual-region {
+  grid-area: visual;
+  min-width: 0;
+  min-height: clamp(180px, 62vw, 300px);
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .food-visual {
-  position: absolute;
-  top: 0;
-  left: 50%;
+  position: relative;
   z-index: 1;
+  flex: 0 0 auto;
   width: clamp(180px, 62vw, 300px);
-  max-width: none;
+  max-width: 300px;
   aspect-ratio: 1;
   margin: 0;
   border: 1px solid rgba(119, 8, 16, 0.12);
@@ -164,11 +195,23 @@ h1 {
   overflow: hidden;
   box-shadow: var(--shadow);
   opacity: var(--image-opacity, 1);
-  transform: translate3d(calc(-50% + var(--image-x, 0px)), var(--image-y, 0px), 0) scale(var(--image-scale, 1));
+  transform-origin: top right;
+  transform: translate3d(var(--image-x, 0px), var(--image-y, 0px), 0) scale(var(--image-scale, 1));
   transition:
-    opacity 160ms linear,
+    transform 520ms var(--ease-soft),
+    opacity 420ms var(--ease-soft),
     filter 520ms ease;
   will-change: transform, opacity;
+}
+
+.category.is-transforming .visual-region {
+  min-height: clamp(118px, 37vw, 154px);
+  justify-content: flex-end;
+}
+
+.category.is-transforming .food-visual {
+  width: 100%;
+  max-width: 136px;
 }
 
 .food-visual::after {
@@ -220,11 +263,14 @@ h1 {
   visibility: hidden;
   opacity: var(--list-opacity, 0);
   pointer-events: none;
+  max-height: calc(var(--list-height, 0px) * var(--list-opacity, 0));
+  overflow: hidden;
   transform: translate3d(0, var(--list-y, 18px), 0);
   transition:
-    opacity 120ms linear,
-    transform 120ms linear,
-    border-color 120ms linear;
+    max-height 620ms var(--ease-soft),
+    opacity 480ms var(--ease-soft),
+    transform 520ms var(--ease-soft),
+    border-color 520ms ease;
   will-change: transform, opacity;
 }
 
@@ -235,9 +281,7 @@ h1 {
 
 .category.is-reduced-motion .menu-panel {
   visibility: visible;
-  opacity: 1;
   pointer-events: auto;
-  transform: none;
 }
 
 .item {
@@ -344,7 +388,7 @@ address {
   }
 
   .food-visual {
-    width: 180px;
+    max-width: 300px;
     border-radius: 14px;
   }
 
@@ -375,6 +419,15 @@ address {
     min-height: 100vh;
     box-shadow: 0 0 0 1px rgba(47, 14, 13, 0.08), 0 30px 90px rgba(47, 14, 13, 0.18);
   }
+
+  .hero h1 {
+    max-width: 13ch;
+    font-size: clamp(3rem, 7vw, 4.1rem);
+  }
+
+  .brand-logo {
+    width: clamp(88px, 16vw, 112px);
+  }
 }
 
 @media (min-width: 900px) {
@@ -392,6 +445,7 @@ address {
 
   .hero {
     min-height: 78svh;
+    padding-bottom: clamp(44px, 8vw, 76px);
   }
 
   h1 {
@@ -418,8 +472,16 @@ address {
     gap: 26px 24px;
   }
 
-  .food-visual {
-    width: 280px;
+  .category:not(.is-transforming) .category-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .category:not(.is-transforming) .food-visual {
+    max-width: 300px;
+  }
+
+  .category.is-transforming .food-visual {
+    max-width: 300px;
     border-radius: 20px;
   }
 
@@ -479,14 +541,12 @@ address {
 
   .food-visual {
     opacity: 1;
-    transform: translate3d(-50%, 0, 0) scale(1) !important;
+    transform: translate3d(0, 0, 0) scale(1) !important;
   }
 
   .menu-panel {
     visibility: visible;
-    opacity: 1;
     pointer-events: auto;
-    transform: none !important;
     border-top-color: transparent !important;
   }
 }
